@@ -1,4 +1,4 @@
-# Guidelines to the lab report about Cosmic Radiation 
+# Guidelines to the Cosmic Radiation lab report
 
 
 ## Common mistakes to be avoided
@@ -13,11 +13,11 @@
 ## Important suggestions
 - Before submitting the report, please go through it together with your group members. Check whether there are typos or whether each sentence ends with a period, etc. Since it's quite normal for each group member to have a different writing skill, reading the report together is a great opportunity to learn from each other about how to write sentences in a clear and comprehensive way.
 
-- Make sure all aspects of the experiment are covered in the report, while also keeping it short and compact. The suggested length of the report is 15 to 20 pages (including a reference list at the end).
+- Make sure all aspects of the experiment are covered in the report, while also keeping it short and compact. The suggested length of the report is 15 to 20 pages (including the reference list at the end).
 
 ## Recommended structure of the lab report
 
-**ATTENTION**: The following structure of chapters and chapter names are merely a suggestion. The points under each chapter are aspects that should better be covered. Feel free to add your own ideas.
+**ATTENTION**: The following structure of chapters and chapter names are merely a suggestion. The points under each chapter are aspects that should be covered. Feel free to add your own ideas.
 
 ### Chapter 1: Introduction
 Some general information about this experiment should be written here **very briefly**, such as what this experiment is about and what kind of measurements are done.
@@ -71,7 +71,7 @@ Some general information about this experiment should be written here **very bri
 - Results of the muon velocity measurement
     * Spectrum of time differences
     * Explanation of the tail at larger time values
-    * Fitting function and calculation for the time of perpendicularly traveling muons?
+    * Fitting function and calculation for the crossing time of perpendicularly traveling muons?
     * Calculation of the muon velocity
 
 ### Chapter 6: Discussion
