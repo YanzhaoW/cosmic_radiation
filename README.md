@@ -28,12 +28,12 @@ Some general information of this experiment should be written here **very briefl
 - Different components of the cosmic radiation (**detailed**)
 - What could be the possible angular distribution for muons (**briefly**)
 - East-west effect
-- Properties of muons
+- Properties of muons  
     *Keywords*: lepton, mass, lifetime, energy loss, Bethe-Bloch formula, minimum ionizing particle
 
 ### Chapter 3: Detectors and electronic modules
 
-- Scintillation (plastic) and its principle (**very detailed**)
+- Scintillation (plastic) and its principle (**very detailed**)  
     Please see chapter 8, section 1 of [Radiation Detection and Measurement](https://phyusdb.files.wordpress.com/2013/03/radiationdetectionandmeasurementbyknoll.pdf).
 - PMT and its principle
 - Mechanism of the constant-fraction discriminator (**detailed**)
@@ -45,18 +45,18 @@ Some general information of this experiment should be written here **very briefl
 - Multi-channel analyser (MCA)
 
 ### Chapter 4: Experimental procedures and setups
-- Setup for scintillators
+- Setup for scintillators  
     *Keywords*: Rotatable frames; Distance between two bars
-- Setup for CFDs
+- Setup for CFDs  
     * How to determine the time delay for the CFD?
     * How to determine an optimal value for the threshold of CFDs? 
     * What is the width of the CFD logical output?
-- Coincidence verification
+- Coincidence verification  
     *Keywords*: cabal length, T-piece
-- Setup and cable connections for the muon angular distribution measurement (detailed)
+- Setup and cable connections for the muon angular distribution measurement (detailed)  
     * Modules and cable connections
     * How to count the muons coming from a specific zenith angle?
-- Setup for the muon velocity measurement (detailed)
+- Setup for the muon velocity measurement (detailed)  
     * Modules and cable connections
     * How to measurement the muon velocity?
     * How to determine the correlation between the channel number and the real time value?
@@ -65,7 +65,7 @@ Some general information of this experiment should be written here **very briefl
 
 ### Chapter 5: Results and Analysis
 - Determination of the CFD threshold
-- Results of muon angular distribution measurement
+- Results of muon angular distribution measurement  
     * What is the fitting function for the angular distribution
 - East-west coefficient
 - Results of muon velocity measurement
