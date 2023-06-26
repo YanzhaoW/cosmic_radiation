@@ -9,6 +9,7 @@
 - Each plot must have a x-axis and y-axis label. Each label must also contain a unit. In case of histograms, the unit of the y-axis label (counts) should be `per ${Bin_Width}` or `/${Bin_Width}`.
 - Any picture in the report must be referred to somewhere in the text.
 - The font size in pictures should be roughly the same as in the text.
+- For the evaluation of errors, please see the section [Error evaluation](#error-evaluation) below.
 
 ## Important suggestions
 - Before submitting the report, please go through it together with your group members. Check whether there are typos or whether each sentence ends with a period, etc. Since it's quite normal for each group member to have a different writing skill, reading the report together is a great opportunity to learn from each other about how to write sentences in a clear and comprehensive way.
@@ -31,7 +32,7 @@ Some general information about this experiment should be written here **very bri
 - Properties of muons  
     *Keywords*: lepton, mass, lifetime, energy loss, Bethe-Bloch formula, minimum ionizing particle
 
-### Chapter 3: Detectors and electronic modules
+### Chapter 3: Detectors and Electronic Modules
 
 - Scintillation (plastic) and its principle (**very detailed**)  
     Please see chapter 8, section 1 of [Radiation Detection and Measurement](https://phyusdb.files.wordpress.com/2013/03/radiationdetectionandmeasurementbyknoll.pdf).
@@ -44,7 +45,7 @@ Some general information about this experiment should be written here **very bri
 - Time-amplitude converter (TAC)
 - Multi-channel analyser (MCA)
 
-### Chapter 4: Experimental procedures and setups
+### Chapter 4: Experimental Procedures and Setups
 - Setup for scintillators  
     *Keywords*: rotatable frames, distance between two bars
 - Setup for CFDs
@@ -76,3 +77,10 @@ Some general information about this experiment should be written here **very bri
 
 ### Chapter 6: Discussion
 A very brief restatement of what has been done in this experiment and the relevant results. If the calculated muon velocity is larger than the speed of light, what could be contributing factors of this error?
+
+## Error evaluation
+### Gaussian error propagation
+To calculate the error of an evaluated value which is depending on other variable (with known errors), use Gaussian error propagation:
+```math
+\delta y = \sqrt(\sum_{i}(\frac{\partial y}{\partial x_i})^2{\delta x_i}^2)
+```
