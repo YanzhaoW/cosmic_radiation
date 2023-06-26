@@ -38,8 +38,10 @@ Some general information about this experiment should be written here **very bri
     Please see chapter 8, section 1 of [Radiation Detection and Measurement](https://phyusdb.files.wordpress.com/2013/03/radiationdetectionandmeasurementbyknoll.pdf).
 - PMT and its principle
 - Mechanism behind a constant-fraction discriminator (**detailed**)
-    * What are the functions of a CFD and why are CFDs needed in this experiment? (*HINT*: the time-walk effect and background noise)
-    * What are the outputs of a CFD? (*HINT*: the logical output and constant-fraction shaped signals, the one with zero-crossing)
+    * What are the functions of a CFD and why are CFDs needed in this experiment?  
+      *HINT*: the time-walk effect and background noise
+    * What are the outputs of a CFD?  
+      *HINT*: the logical output and constant-fraction shaped signals, the one with zero-crossing
 - Logical unit
 - Delay module
 - Time-amplitude converter (TAC)
@@ -53,6 +55,7 @@ Some general information about this experiment should be written here **very bri
     * How to determine an optimal value for the threshold of the CFDs? 
     * What is the width of the logical output of the CFD?
 - Coincidence verification  
+     How to make sure there is no extra time delay difference introduced by cables?  
     *Keywords*: cable length, T-piece
 - Setup and cable connections for the muon angular distribution measurement (**detailed**)
     * Modules and cable connections
