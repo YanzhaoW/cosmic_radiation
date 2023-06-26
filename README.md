@@ -80,7 +80,23 @@ A very brief restatement of what has been done in this experiment and the releva
 
 ## Error evaluation
 ### Gaussian error propagation
-To calculate the error of an evaluated value which is depending on other variable (with known errors), use Gaussian error propagation:
+To calculate the error of an evaluated value which is depending on other variables (with known errors), use [Gaussian error propagation](https://www.statisticshowto.com/statistics-basics/error-propagation/):  
 ```math
-\delta y = \sqrt(\sum_{i}(\frac{\partial y}{\partial x_i})^2{\delta x_i}^2)
+\begin{align}
+\text{if} &&\\
+&& y &= f(x_1, x_2, ..., x_n)&\\
+\text{then} &&\\
+&&\delta y &= \sqrt{\sum_{i}^{n}\left(\frac{\partial y}{\partial x_i}\right)^2{\delta x_i}^2}
+\end{align}
+```
+**ATTENTION**: all variables in this equation $x_1, x_2, x_3, ..., x_n$ must be [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)) with eath other.  
+Examples:
+```math
+\begin{align}
+\text{if}&&\\
+&&y &= x_1 + x_2 \\
+\text{then}&&\\
+&&\delta y &= \sqrt{\left(\delta x_1\right)^2 + \left(\delta x_2\right)^2}\\
+&&&\neq \delta x_1 + \delta x_2
+\end{align}
 ```
