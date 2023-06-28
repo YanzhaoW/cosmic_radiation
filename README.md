@@ -104,6 +104,7 @@ $$\begin{align} \text{if}&&\\
 ### Linear regression
 In this experiment, the method of linear regression is required to obtain the relation between the channel number and the real time value. It's suggested to use Python (scipy) to calculate the relevant coefficients and their corresponding errors. 
 
+#### Algorithm
 One of examples is shown below (see the [source file](data_fitting.py) for the full detail):
 ```python
 model = odr.Model(fcn = lambda p,x : p[0]* x + p[1])
@@ -133,6 +134,59 @@ The two values after `Beta` are the fitted values for the parameter $a$ and $b$ 
 $$ Var(a, b) = \begin{bmatrix} \delta\^2_a & \delta\^2_{ab} \\\\ 
 \delta\^2\_{ab} & \delta\^2\_{b} \end{bmatrix}$$
 
-where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value from the result is `Residual Variance`, also called "reduced $\chi^2$ value", can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#reporting-on-goodness-of-fitting)).
-## Reporting on goodness of fitting
+where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value from the result is `Residual Variance`, also called "reduced $\chi^2$ value", can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fitting)).
+
+#### Prediction error
+Once the calibration relation is determined by the linear regression, a prediction of a real time value need to be made with a channel number (with an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
+
+The following shows the mathematical derivation of the prediction error calculation:
+
+First, let the capitalized letter be denoted as a random variable. Thus, the linear relation can be expressed as:
+
+$$ Y = A \cdot X + B$$
+
+Mathematically, the error of a measurement can be viewed as the standard deviation of its random variable, which is the square root of its variance:
+
+$$ \delta_{a} = \sqrt{Var(A)}$$
+
+From the theory of probability, three relations can be proved very easily:
+
+1. The variance of the sum of two random variables is:
+    $$Var(X + Y) = Var(X) + Var(Y) + 2Cov(X, Y)$$
+2. The variance of the product of two independent random variables is:
+    $$Var(XY) = Var(X)\cdot Var(Y) + Var(X)\cdot E^2(Y) + Var(Y)\cdot E^2(X)$$
+3. If $X$ is independent to $Y$ and $Z$, then
+    $$Cov(XY, Z) = E(X) \cdot Cov(X, Y)$$
+
+Therefore, the variance of $Y$ can derived as:
+$$\begin{align}
+    Var(Y) =& Var(AX) + Var(B) + 2Cov(AX, B)\\
+    =& Var(A)\cdot Var(X) + Var(A)\cdot E^2(X) + Var(X)\cdot E^2(A) \\
+    & + Var(B) + 2E(X)\cdot Cov(A, B)
+\end{align}$$
+
+Please keep in mind that $X$ is the input, which is independent to the coefficients $A$ and $B$.
+
+Therefore the prediction variance can be expressed as:
+$$\delta^2_y =  \delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}$$
+
+where $\delta_a$, $\delta_b$ and $\delta_x$ are the errors of $a$, $b$ and $x$ respectively. The covariance $\delta^2_{ab}$, as has been mentioned above, can be obtained directly from the fitting algorithm.
+
+In the end, the **prediction error** is:
+$$\delta_y =  \sqrt{\delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}}$$
+
+In the example above, suppose a prediction need to be made at $x = 18.5$ with its error $\delta_x = 2.5$. From the result of the ODR algorithm, the fitting result of 
+$$ y = a\cdot x + b$$
+is $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$. The covariance $\delta^2_{ab} = -0.38$. Then, the prediction with its error can be evaluated as:
+$$\begin{align} 
+y &= a \cdot x + b \\
+&= 2.1 \times 18.5 + 9.19 \\
+&= 48.04 \\
+\delta_y &= \sqrt{\delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}} \\
+&= \sqrt{(0.13)^2 \times (2.5)^2 + (1.75)^2+ (18.5)^2 \times (0.13)^2+ (2.1)^2 \times (2.5)^2 + 2 \times 18.5 \times (-0.38)} \\
+&= 4.74
+\end{align}$$
+
+
+## Goodness of fitting
 
