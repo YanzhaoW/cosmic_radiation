@@ -83,7 +83,7 @@ A very brief restatement of what has been done in this experiment and the releva
 
 ## Error evaluation
 ### Gaussian error propagation
-To calculate the error of an evaluated value which is depending on other variables (with known errors), use [Gaussian error propagation](https://www.statisticshowto.com/statistics-basics/error-propagation/):  
+To calculate the error of an evaluated value, which is depending on other variables (with known errors), use the [Gaussian error propagation](https://www.statisticshowto.com/statistics-basics/error-propagation/):  
 
 $$\begin{align}
 \text{if} &&\\
@@ -92,8 +92,8 @@ $$\begin{align}
 &&\delta y &= \sqrt{\sum_{i}^{n}\left(\frac{\partial y}{\partial x_i}\right)^2{\delta x_i}^2}
 \end{align}$$
 
-**ATTENTION**: all variables in this equation $x_1, x_2, x_3, ..., x_n$ must be [independent](https://en.wikipedia.org/wiki/Independence_\(probability_theory\)) with eath other.  
-Examples:
+**ATTENTION**: All variables $x_1, x_2, x_3, ..., x_n$ in this equation must be [independent](https://en.wikipedia.org/wiki/Independence_\(probability_theory\)) of each other.  
+Example:
 
 $$\begin{align} \text{if}&&\\
 &&y &= x_1 + x_2 \\
@@ -102,10 +102,10 @@ $$\begin{align} \text{if}&&\\
 && &\neq \delta x_1 + \delta x_2 \end{align}$$
 
 ### Linear regression
-In this experiment, the method of linear regression is required to obtain the relation between the channel number and the real time value. It's suggested to use Python (scipy) to calculate the relevant coefficients and their corresponding errors. 
+In this experiment, linear regression is required to obtain the relation between the channel number and the real time value. It's recommended to use Python (scipy) to calculate relevant coefficients and their corresponding errors. 
 
 #### Algorithm
-One of examples is shown below (see the [source file](data_fitting.py) for the full detail):
+An examples is shown below (see [source file](data_fitting.py) full details):
 ```python
 model = odr.Model(fcn = lambda p,x : p[0]* x + p[1])
 data = odr.RealData(x = dataframe['x'], y = dataframe['y'], sx = dataframe['x_err'], sy = dataframe['y_err'])
@@ -116,9 +116,9 @@ res.pprint()
 The following plot also shows the [input data](data.csv) and the fitted linear function $y = a \cdot x + b$:
 <img src="fitting_plot.png" width="500">
 
-The algorithm used here is called [Orthogonal Distance Regression](https://docs.scipy.org/doc/scipy/reference/odr.html)(ODR). The advantage of using ODR is both values and errors are taken into account during the fitting process, which is often needed in physics experiments where measured values are always accompanied with **uncertainties**.
+The algorithm used here is called [Orthogonal Distance Regression](https://docs.scipy.org/doc/scipy/reference/odr.html) (ODR). The advantage of using ODR is that both values and errors are taken into account during the fitting process, which is often needed in physics experiments,,, where measured values are always accompanied with **uncertainties**.
 
-The result from the ODR algorithm is:
+The result of the ODR algorithm is:
 ```text
 Beta: [2.09832899 9.19433546]
 Beta Std Error: [0.13022205 1.75706129]
@@ -129,15 +129,15 @@ Inverse Condition #: 0.0032822996436673783
 Reason(s) for Halting:
   Sum of squares convergence
 ```
-The two values after `Beta` are the fitted values for the parameter $a$ and $b$ while their corresponding errors $\delta_a$ and $\delta_b$ are shown after `Beta Std Error`. `Beta Covariance` is the (co)variance matrix between the fitting parameters, defined as:
+The two values after `Beta` are the fitted values for the parameter $a$ and $b$ while their corresponding errors $\delta_a$ and $\delta_b$ are shown after `Beta Std Error`. `Beta Covariance` is the (co)variance matrix of the fitting parameters, defined as:
 
 $$ Var(a, b) = \begin{bmatrix} \delta\^2_a & \delta\^2_{ab} \\\\ 
 \delta\^2\_{ab} & \delta\^2\_{b} \end{bmatrix}$$
 
-where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value from the result is `Residual Variance`, also called "reduced $\chi^2$ value", can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fitting)).
+where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value of the result is `Residual Variance`, also called "reduced $\chi^2$ value", which can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fitting)).
 
 #### Prediction error
-Once the calibration relation is determined by the linear regression, a prediction of a real time value need to be made with a channel number (with an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
+Once the calibration relation is determined by linear regression, a prediction of a real time value needs to be made with a channel number (with an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
 
 The following shows the mathematical derivation of the prediction error calculation:
 
@@ -149,16 +149,16 @@ Mathematically, the error of a measurement can be viewed as the standard deviati
 
 $$ \delta_{a} = \sqrt{Var(A)}$$
 
-From the theory of probability, three relations can be proved very easily:
+In probability theory, three properties can be proven very easily:
 
 1. The variance of the sum of two random variables is:
     $$Var(X + Y) = Var(X) + Var(Y) + 2Cov(X, Y)$$
 2. The variance of the product of two independent random variables is:
     $$Var(XY) = Var(X)\cdot Var(Y) + Var(X)\cdot E^2(Y) + Var(Y)\cdot E^2(X)$$
-3. If $X$ is independent to $Y$ and $Z$, then
+3. If $X$ is independent of $Y$ and $Z$, then
     $$Cov(XY, Z) = E(X) \cdot Cov(X, Y)$$
 
-Therefore, the variance of $Y$ can derived as:
+Therefore, the variance of $Y$ can be derived as:
 
 $$\begin{align}
     Var(Y) =& Var(AX + B) \\
@@ -173,18 +173,18 @@ Therefore the prediction variance can be expressed as:
 
 $$\delta^2_y =  \delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}$$
 
-where $\delta_a$, $\delta_b$ and $\delta_x$ are the errors of $a$, $b$ and $x$ respectively. The covariance $\delta^2_{ab}$, as has been mentioned above, can be obtained directly from the fitting algorithm.
+where $\delta_a$, $\delta_b$ and $\delta_x$ are the errors of $a$, $b$ and $x$ respectively. The covariance $\delta^2_{ab}$, as is mentioned above, can be obtained directly from the fitting algorithm.
 
 In the end, the **prediction error** is:
 
 $$\delta_y =  \sqrt{\delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}}$$
 
-In the example above, suppose a prediction need to be made at $x = 18.5$ with its error $\delta_x = 2.5$. From the result of the ODR algorithm, the fitting result of
+For the example above, suppose a prediction need to be made at $x = 18.5$ with its error $\delta_x = 2.5$. By the result of the ODR algorithm, the fitting parameters of
 
 $$ y = a\cdot x + b$$
 
-is $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$. The covariance $\delta^2_{ab} = -0.38$. 
-Then, the prediction with its error can be evaluated as:
+are evaluated as $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$, with the covariance $\delta^2_{ab} = -0.38$. 
+Then, the prediction with its error are:
 
 $$\begin{align} 
 y &= a \cdot x + b \\
