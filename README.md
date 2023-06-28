@@ -159,8 +159,10 @@ From the theory of probability, three relations can be proved very easily:
     $$Cov(XY, Z) = E(X) \cdot Cov(X, Y)$$
 
 Therefore, the variance of $Y$ can derived as:
+
 $$\begin{align}
-    Var(Y) =& Var(AX) + Var(B) + 2Cov(AX, B)\\
+    Var(Y) =& Var(AX + B) \\
+    =& Var(AX) + Var(B) + 2Cov(AX, B)\\
     =& Var(A)\cdot Var(X) + Var(A)\cdot E^2(X) + Var(X)\cdot E^2(A) \\
     & + Var(B) + 2E(X)\cdot Cov(A, B)
 \end{align}$$
@@ -168,16 +170,22 @@ $$\begin{align}
 Please keep in mind that $X$ is the input, which is independent to the coefficients $A$ and $B$.
 
 Therefore the prediction variance can be expressed as:
+
 $$\delta^2_y =  \delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}$$
 
 where $\delta_a$, $\delta_b$ and $\delta_x$ are the errors of $a$, $b$ and $x$ respectively. The covariance $\delta^2_{ab}$, as has been mentioned above, can be obtained directly from the fitting algorithm.
 
 In the end, the **prediction error** is:
+
 $$\delta_y =  \sqrt{\delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}}$$
 
-In the example above, suppose a prediction need to be made at $x = 18.5$ with its error $\delta_x = 2.5$. From the result of the ODR algorithm, the fitting result of 
+In the example above, suppose a prediction need to be made at $x = 18.5$ with its error $\delta_x = 2.5$. From the result of the ODR algorithm, the fitting result of
+
 $$ y = a\cdot x + b$$
-is $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$. The covariance $\delta^2_{ab} = -0.38$. Then, the prediction with its error can be evaluated as:
+
+is $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$. The covariance $\delta^2_{ab} = -0.38$. 
+Then, the prediction with its error can be evaluated as:
+
 $$\begin{align} 
 y &= a \cdot x + b \\
 &= 2.1 \times 18.5 + 9.19 \\
