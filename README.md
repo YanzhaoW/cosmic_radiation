@@ -84,22 +84,55 @@ A very brief restatement of what has been done in this experiment and the releva
 ## Error evaluation
 ### Gaussian error propagation
 To calculate the error of an evaluated value which is depending on other variables (with known errors), use [Gaussian error propagation](https://www.statisticshowto.com/statistics-basics/error-propagation/):  
-```math
-\begin{align}
+
+$$\begin{align}
 \text{if} &&\\
 && y &= f(x_1, x_2, ..., x_n)&\\
 \text{then} &&\\
 &&\delta y &= \sqrt{\sum_{i}^{n}\left(\frac{\partial y}{\partial x_i}\right)^2{\delta x_i}^2}
-\end{align}
-```
-**ATTENTION**: all variables in this equation $x_1, x_2, x_3, ..., x_n$ must be [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)) with eath other.  
+\end{align}$$
+
+**ATTENTION**: all variables in this equation $x_1, x_2, x_3, ..., x_n$ must be [independent](https://en.wikipedia.org/wiki/Independence_\(probability_theory\)) with eath other.  
 Examples:
-```math
-\begin{align}
-\text{if}&&\\
+
+$$\begin{align} \text{if}&&\\
 &&y &= x_1 + x_2 \\
 \text{then}&&\\
 &&\delta y &= \sqrt{\left(\delta x_1\right)^2 + \left(\delta x_2\right)^2}\\
-&&&\neq \delta x_1 + \delta x_2
-\end{align}
+&& &\neq \delta x_1 + \delta x_2 \end{align}$$
+
+### Linear regression
+In this experiment, the method of linear regression is required to obtain the relation between the channel number and the real time value. It's suggested to use Python (scipy) to calculate the relevant coefficients and their corresponding errors. 
+
+One of examples is shown below (see the [source file](data_fitting.py) for the full detail):
+```python
+model = odr.Model(fcn = lambda p,x : p[0]* x + p[1])
+data = odr.RealData(x = dataframe['x'], y = dataframe['y'], sx = dataframe['x_err'], sy = dataframe['y_err'])
+ODR_reg = odr.ODR(data, model, beta0 = [1., 0.])
+res = ODR_reg.run()
+res.pprint()
 ```
+The following plot also shows the [input data](data.csv) and the fitted linear function $y = a \cdot x + b$:
+<img src="fitting_plot.png" width="500">
+
+The algorithm used here is called [Orthogonal Distance Regression](https://docs.scipy.org/doc/scipy/reference/odr.html)(ODR). The advantage of using ODR is both values and errors are taken into account during the fitting process, which is often needed in physics experiments where measured values are always accompanied with **uncertainties**.
+
+The result from the ODR algorithm is:
+```text
+Beta: [2.09832899 9.19433546]
+Beta Std Error: [0.13022205 1.75706129]
+Beta Covariance: [[ 0.03170357 -0.38321601]
+ [-0.38321601  5.77182231]]
+Residual Variance: 0.5348855538422207
+Inverse Condition #: 0.0032822996436673783
+Reason(s) for Halting:
+  Sum of squares convergence
+```
+The two values after `Beta` are the fitted values for the parameter $a$ and $b$ while their corresponding errors $\delta_a$ and $\delta_b$ are shown after `Beta Std Error`. `Beta Covariance` is the (co)variance matrix between the fitting parameters, defined as:
+
+$$ Var(a, b) = \begin{bmatrix} \delta\^2_a & \delta\^2_{ab} \\\\ 
+\delta\^2\_{ab} & \delta\^2\_{b} \end{bmatrix}$$
+
+where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value from the result is `Residual Variance`, also called "reduced $\chi^2$ value", can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#reporting-on-goodness-of-fitting)).
+## Reporting on goodness of fitting
+
