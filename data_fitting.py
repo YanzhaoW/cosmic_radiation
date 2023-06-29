@@ -49,14 +49,14 @@ if __name__ == "__main__":
     linear_fitter = ODR_fitter(dataframe)
     linear_fitter.fit(fnt = lambda p,x : p[0]* x + p[1], inits = [1., 0.])
     linear_fitter.print()
-    linear_fitter.save_plot('fitting_plot.png')
+    linear_fitter.save_plot('figs/fitting_plot.png')
 
     dataframe = pd.read_csv('trig_data.csv')
     trig_fitter = ODR_fitter(dataframe)
     trig_fitter.fit(fnt = lambda p,x : np.power( p[1]* (np.cos( p[0] * x) + 1), 2), inits = [1, 1])
     trig_fitter.print()
-    trig_fitter.save_plot('trig_fitting.png', title = "Fitting fun: (p[1] * (cos(p[0]*x) + 1))^2")
+    trig_fitter.save_plot('figs/trig_fitting.png', title = "Fitting fun: (p[1] * (cos(p[0]*x) + 1))^2")
 
     trig_fitter.fit(fnt = lambda p,x : p[0]*x*x + p[1], inits = [-1, 1])
     trig_fitter.print()
-    trig_fitter.save_plot('trig_fitting_quadratic.png', title = "Fitting fun: p[0]*x^2 + p[1]")
+    trig_fitter.save_plot('figs/trig_fitting_quadratic.png', title = "Fitting fun: p[0]*x^2 + p[1]")
