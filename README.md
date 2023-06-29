@@ -1,15 +1,19 @@
 # Guidelines to the Cosmic Radiation lab report
 
-
 ## Common mistakes to be avoided
 
 - "Earth" means the planet and "earth" means ground.
 - In scientific reports, usages of pronouns, like "we", "our" or "us" should be avoided.
 - Citations should be placed at the end of each sentence before the period (see [this](https://academia.stackexchange.com/questions/85477/where-should-citations-be-placed-relative-to-punctuation-e-g-full-stops-and-c)). DO NOT put all citations at the end of the paragraph.
-- Each plot must have a x-axis and y-axis label. Each label must also contain a unit. In case of histograms, the unit of the y-axis label (counts) should be `per ${Bin_Width}` or `/${Bin_Width}`.
+- Each plot must have a x-axis label, a y-axis label and a subtitle. Each label must also contain a unit. In case of histograms, the unit of the y-axis label (counts) should be `per ${Bin_Width}` or `/${Bin_Width}`.
+    Example:
+    <p align="center">
+    <img src="Histogram.png" width="300">
+    </p>
 - Any picture in the report must be referred to somewhere in the text.
 - The font size in pictures should be roughly the same as in the text.
-- For the evaluation of errors, please see the section [Error evaluation](#error-evaluation) below.
+- Make sure errors are correctly evaluated. Please see the section [Error evaluation](#error-evaluation) below.
+- Every parameter fitting needs to be reported with a p-value (a.k.a confidence level). Please see the section [Goodness of fit](#goodness-of-fit) below.
 
 ## Important suggestions
 - Before submitting the report, please go through it together with your group members. Check whether there are typos or whether each sentence ends with a period, etc. Since it's quite normal for each group member to have a different writing skill, reading the report together is a great opportunity to learn from each other about how to write sentences in a clear and comprehensive way.
@@ -105,16 +109,19 @@ $$\begin{align} \text{if}&&\\
 In this experiment, linear regression is required to obtain the relation between the channel number and the real time value. It's recommended to use Python (scipy) to calculate relevant coefficients and their corresponding errors. 
 
 #### Algorithm
-An examples is shown below (see [source file](data_fitting.py) full details):
+An examples is shown below (see [source file](data_fitting.py) for full details):
 ```python
 model = odr.Model(fcn = lambda p,x : p[0]* x + p[1])
-data = odr.RealData(x = dataframe['x'], y = dataframe['y'], sx = dataframe['x_err'], sy = dataframe['y_err'])
+data = odr.RealData(x = dataframe['x'], y = dataframe['y'], 
+                    sx = dataframe['x_err'], sy = dataframe['y_err'])
 ODR_reg = odr.ODR(data, model, beta0 = [1., 0.])
 res = ODR_reg.run()
 res.pprint()
 ```
 The following plot also shows the [input data](data.csv) and the fitted linear function $y = a \cdot x + b$:
+<p align="center">
 <img src="fitting_plot.png" width="500">
+</p>
 
 The algorithm used here is called [Orthogonal Distance Regression](https://docs.scipy.org/doc/scipy/reference/odr.html) (ODR). The advantage of using ODR is that both values and errors are taken into account during the fitting process, which is often needed in physics experiments,,, where measured values are always accompanied with **uncertainties**.
 
@@ -134,7 +141,7 @@ The two values after `Beta` are the fitted values for the parameter $a$ and $b$ 
 $$ Var(a, b) = \begin{bmatrix} \delta\^2_a & \delta\^2_{ab} \\\\ 
 \delta\^2\_{ab} & \delta\^2\_{b} \end{bmatrix}$$
 
-where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value of the result is `Residual Variance`, also called "reduced $\chi^2$ value", which can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fitting)).
+where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value of the result is `Residual Variance`, also called "reduced $\chi^2$ value", which can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fit)).
 
 #### Prediction error
 Once the calibration relation is determined by linear regression, a prediction of a real time value needs to be made with a channel number (with an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
@@ -184,7 +191,7 @@ For the example above, suppose a prediction need to be made at $x = 18.5$ with i
 $$ y = a\cdot x + b$$
 
 are evaluated as $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$, with the covariance $\delta^2_{ab} = -0.38$. 
-Then, the prediction with its error are:
+Then, the prediction with its error can be:
 
 $$\begin{align} 
 y &= a \cdot x + b \\
@@ -195,6 +202,32 @@ y &= a \cdot x + b \\
 &= 4.74
 \end{align}$$
 
+## Goodness of fit
+The [goodness of fit](https://en.wikipedia.org/wiki/Goodness_of_fit) is measured by the [p-value](https://en.wikipedia.org/wiki/P-value) during a statistical test. In such a test, the **null hypothesis** can normally be defined as:
 
-## Goodness of fitting
+$$H_0: \text{The underlying function of the measured data is the function used in the fitting process.}$$
 
+If the p-value is less than 5% (0.05), the null hypothesis must be rejected.
+
+The p-value is related to the residual variance (`res_var`) given by the ODR algorithm, through an equation:
+
+$$\text{p-value} = 1 - \text{CDF}(\text{res\_var}, 1) $$
+
+where `CDF` is the cumulative distribution function of a $\chi^2$ distribution with the degree of freedom equal to 1.
+
+In Python, the p-value can be calculated as:
+```python
+from scipy import odr, stats
+
+odr_reg = odr.ODR(data, model, beta0 = inits)
+odr_reg.run()
+res_var = odr_reg.output.__getattribute__('res_var')
+p_value = 1 - stats.chi2.cdf(res_var, df = 1)
+```
+
+Following two plots show another example of fitting parameters using the data generated by a cosine function:
+<p align="middle">
+  <img src="trig_fitting.png" width="500" />
+  <img src="trig_fitting_quadratic.png" width="500" /> 
+</p>
+The plot on the left side, using the correct fitting function, obtains a p-value of 36.65%. On the other hand, if the fitting function is incorrectly chosen, as is shown in the plot at the right side, the resulting p-value is very small (< 5%).
