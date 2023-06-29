@@ -41,7 +41,7 @@ class ODR_fitter:
     def print(self):
         print("===============fitting result:=================")
         self.res.pprint()
-        print("p-value: %.2f%%" % self.p_value)
+        print("p-value: %.2f%%" % (100 * self.p_value))
         print("===============================================")
 
 if __name__ == "__main__":

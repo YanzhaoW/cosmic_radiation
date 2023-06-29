@@ -71,7 +71,7 @@ if __name__ == "__main__":
     period = 3.2
     power = 2
     trig = Random_Gen(Trig_fun(power = power, k = 2 * math.pi / period))
-    trig.set_xerror(min = 0.005, max = 0.005)
+    trig.set_xerror(min = 0.05, max = 0.05)
     trig.set_yerror(min = 0.1, max = 0.1)
     trig(size = 20, x_min = - period / 2, x_max = period / 2)
     trig.SaveToCsv("trig_data.csv")

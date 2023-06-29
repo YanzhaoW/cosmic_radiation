@@ -230,4 +230,4 @@ Following two plots show another example of fitting parameters using the data ge
   <img src="trig_fitting.png" width="500" />
   <img src="trig_fitting_quadratic.png" width="500" /> 
 </p>
-The plot on the left side, using the correct fitting function, obtains a p-value of 36.65%. On the other hand, if the fitting function is incorrectly chosen, as is shown in the plot at the right side, the resulting p-value is very small (< 5%).
+The plot on the left side, using the correct fitting function, obtains a p-value of 26.35%. On the other hand, if the fitting function is incorrectly chosen, as is shown in the plot at the right side, the resulting p-value is very small (< 5%).
