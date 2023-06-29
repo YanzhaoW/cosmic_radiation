@@ -5,7 +5,7 @@
 - "Earth" means the planet and "earth" means ground.
 - In scientific reports, usages of pronouns, like "we", "our" or "us" should be avoided.
 - Citations should be placed at the end of each sentence before the period (see [this](https://academia.stackexchange.com/questions/85477/where-should-citations-be-placed-relative-to-punctuation-e-g-full-stops-and-c)). DO NOT put all citations at the end of the paragraph.
-- Each plot must have a x-axis label, a y-axis label and a subtitle. Each label must also contain a unit. In case of histograms, the unit of the y-axis label (counts) should be `per ${Bin_Width}` or `/${Bin_Width}`.
+- Each plot must have a x-axis label, a y-axis label and a subtitle. Each label must also contain a unit. In case of histograms, the unit of the y-axis label (counts) should be `per ${Bin_Width}` or `/${Bin_Width}`.  
     Example:
     <p align="center">
     <img src="figs/Histogram.png" width="300">
