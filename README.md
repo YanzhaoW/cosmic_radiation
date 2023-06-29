@@ -211,7 +211,7 @@ If the p-value is less than 5% (0.05), the null hypothesis must be rejected.
 
 The p-value is related to the residual variance (`res_var`) given by the ODR algorithm, through an equation:
 
-$$\text{p-value} = 1 - \text{CDF}(\text{res\_var}, 1) $$
+$$\text{p-value} = 1 - \text{CDF}(\text{res\\_var}, 1) $$
 
 where `CDF` is the cumulative distribution function of a $\chi^2$ distribution with the degree of freedom equal to 1.
 
