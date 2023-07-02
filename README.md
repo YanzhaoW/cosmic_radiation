@@ -3,8 +3,8 @@
 ## Common mistakes to be avoided
 
 - "Earth" means the planet and "earth" means ground.
-- In scientific reports, usages of pronouns, like "we", "our" or "us" should be avoided.
-- Citations should be placed at the end of each sentence before the period (see [this](https://academia.stackexchange.com/questions/85477/where-should-citations-be-placed-relative-to-punctuation-e-g-full-stops-and-c)). DO NOT put all citations at the end of the paragraph.
+- In scientific reports, usages of pronouns like "we", "our" or "us" should be avoided.
+- Citations should be placed at the end of each sentence before the period (see [here](https://academia.stackexchange.com/questions/85477/where-should-citations-be-placed-relative-to-punctuation-e-g-full-stops-and-c)). DO NOT put all citations at the end of a paragraph.
 - Each plot must have a x-axis label, a y-axis label and a subtitle. Each label must also contain a unit. In case of histograms, the unit of the y-axis label (counts) should be `per ${Bin_Width}` or `/${Bin_Width}`.  
     Example:
     <p align="center">
@@ -12,11 +12,11 @@
     </p>
 - Any picture in the report must be referred to somewhere in the text.
 - The font size in pictures should be roughly the same as in the text.
-- Make sure errors are correctly evaluated. Please see the section [Error evaluation](#error-evaluation) below.
-- Every parameter fitting needs to be reported with a p-value (a.k.a confidence level). Please see the section [Goodness of fit](#goodness-of-fit) below.
+- Make sure errors are correctly evaluated. Please look at the section [Error evaluation](#error-evaluation) below.
+- Every parameter fitting needs to be reported with a p-value (a.k.a confidence level). Please look at the section [Goodness of fit](#goodness-of-fit) below.
 
 ## Important suggestions
-- Before submitting the report, please go through it together with your group members. Check whether there are typos or whether each sentence ends with a period, etc. Since it's quite normal for each group member to have a different writing skill, reading the report together is a great opportunity to learn from each other about how to write sentences in a clear and comprehensive way.
+- Before submitting the report, please go through it together with your group members. Check whether there are typos or whether each sentence ends with a period, etc. Since it's quite normal for each group member to have different writing skills, reading the report together is a great opportunity to learn from each other about how to write sentences in a clear and comprehensive way.
 
 - Make sure all aspects of the experiment are covered in the report, while also keeping it short and compact. The suggested length of the report is 15 to 20 pages (including the reference list at the end).
 
@@ -39,7 +39,7 @@ Some general information about this experiment should be written here **very bri
 ### Chapter 3: Detectors and Electronic Modules
 
 - Scintillation (plastic) and its principle (**very detailed**)  
-    Please see chapter 8, section 1 of [Radiation Detection and Measurement](https://phyusdb.files.wordpress.com/2013/03/radiationdetectionandmeasurementbyknoll.pdf).
+    Please look at chapter 8, section 1 of [Radiation Detection and Measurement](https://phyusdb.files.wordpress.com/2013/03/radiationdetectionandmeasurementbyknoll.pdf).
 - PMT and its principle
 - Mechanism behind a constant-fraction discriminator (**detailed**)
     * What are the functions of a CFD and why are CFDs needed in this experiment?  
@@ -109,7 +109,7 @@ $$\begin{align} \text{if}&&\\
 In this experiment, linear regression is required to obtain the relation between the channel number and the real time value. It's recommended to use Python (scipy) to calculate relevant coefficients and their corresponding errors. 
 
 #### Algorithm
-An examples is shown below (see [source file](data_fitting.py) for full details):
+An examples is shown below (see [source file](data_fitting.py) for full detail):
 ```python
 model = odr.Model(fcn = lambda p,x : p[0]* x + p[1])
 data = odr.RealData(x = dataframe['x'], y = dataframe['y'], 
@@ -123,7 +123,7 @@ The following plot also shows the [input data](data.csv) and the fitted linear f
 <img src="figs/fitting_plot.png" width="500">
 </p>
 
-The algorithm used here is called [Orthogonal Distance Regression](https://docs.scipy.org/doc/scipy/reference/odr.html) (ODR). The advantage of using ODR is that both values and errors are taken into account during the fitting process, which is often needed in physics experiments,,, where measured values are always accompanied with **uncertainties**.
+The algorithm used here is called [Orthogonal Distance Regression](https://docs.scipy.org/doc/scipy/reference/odr.html) (ODR). The advantage of using ODR is that both values and errors are taken into account during the fitting process, which is often needed in physics experiments, where measured values are always accompanied with **uncertainties**.
 
 The result of the ODR algorithm is:
 ```text
@@ -144,9 +144,9 @@ $$ Var(a, b) = \begin{bmatrix} \delta\^2_a & \delta\^2_{ab} \\\\
 where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value of the result is `Residual Variance`, also called "reduced $\chi^2$ value", which can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fit)).
 
 #### Prediction error
-Once the calibration relation is determined by linear regression, a prediction of a real time value needs to be made with a channel number (with an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
+Once the calibration relation is determined by linear regression, a prediction of a real time value needs to be made with a channel number (including an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
 
-The following shows the mathematical derivation of the prediction error calculation:
+The following shows the mathematical derivation of the prediction error:
 
 First, let the capitalized letter be denoted as a random variable. Thus, the linear relation can be expressed as:
 
@@ -174,7 +174,7 @@ $$\begin{align}
     & + Var(B) + 2E(X)\cdot Cov(A, B)
 \end{align}$$
 
-Please keep in mind that $X$ is the input, which is independent to the coefficients $A$ and $B$.
+Please keep in mind that $X$ is the input, which is independent of the coefficients $A$ and $B$.
 
 Therefore the prediction variance can be expressed as:
 
@@ -186,12 +186,12 @@ In the end, the **prediction error** is:
 
 $$\delta_y =  \sqrt{\delta^2_a \delta^2_x + \delta^2_b + x^2\delta^2_a + a^2\delta^2_x + 2x\delta^2_{ab}}$$
 
-For the example above, suppose a prediction need to be made at $x = 18.5$ with its error $\delta_x = 2.5$. By the result of the ODR algorithm, the fitting parameters of
+For the example above, suppose a prediction needs to be made at $x = 18.5$ with its error $\delta_x = 2.5$. By the result of the ODR algorithm, the fitting parameters of
 
 $$ y = a\cdot x + b$$
 
 are evaluated as $a = 2.10$, $b = 9.19$, $\delta_a = 0.13$ and $\delta_b = 1.75$, with the covariance $\delta^2_{ab} = -0.38$. 
-Then, the prediction with its error can be:
+Then, the prediction with its error could be:
 
 $$\begin{align} 
 y &= a \cdot x + b \\
@@ -203,7 +203,7 @@ y &= a \cdot x + b \\
 \end{align}$$
 
 ## Goodness of fit
-The [goodness of fit](https://en.wikipedia.org/wiki/Goodness_of_fit) is measured by the [p-value](https://en.wikipedia.org/wiki/P-value) during a statistical test. In such a test, the **null hypothesis** can normally be defined as:
+The [goodness of fit](https://en.wikipedia.org/wiki/Goodness_of_fit) is measured by the [p-value](https://en.wikipedia.org/wiki/P-value) during a statistical test. In such a test, the **null hypothesis** can usually be defined as:
 
 $$H_0: \text{The underlying function of the measured data is the function used in the fitting process.}$$
 
@@ -225,9 +225,9 @@ res_var = odr_reg.output.__getattribute__('res_var')
 p_value = 1 - stats.chi2.cdf(res_var, df = 1)
 ```
 
-Following two plots show another example of fitting parameters using the data generated by a cosine function:
+The following two plots show another example of fitting parameters using the data generated by a cosine function:
 <p align="middle">
   <img src="figs/trig_fitting.png" width="500" />
   <img src="figs/trig_fitting_quadratic.png" width="500" /> 
 </p>
-The plot on the left side, using the correct fitting function, obtains a p-value of 26.35%. On the other hand, if the fitting function is incorrectly chosen, as is shown in the plot at the right side, the resulting p-value is very small (< 5%).
+The plot on the left side, using the correct fitting function, obtains a p-value of 26.35%. On the other hand, if the fitting function is chosen incorrectly, as is shown in the plot at the right side, the resulting p-value is very small (< 5%).
