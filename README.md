@@ -136,12 +136,12 @@ Inverse Condition #: 0.0032822996436673783
 Reason(s) for Halting:
   Sum of squares convergence
 ```
-The two values after `Beta` are the fitted values for the parameter $a$ and $b$ while their corresponding errors $\delta_a$ and $\delta_b$ are shown after `Beta Std Error`. `Beta Covariance` is the (co)variance matrix of the fitting parameters, defined as:
+The two values after `Beta` are the fitted values for the parameter $a$ and $b$. `Beta Covariance` is the (co)variance matrix of the fitting parameters, defined as:
 
 $$ Var(a, b) = \begin{bmatrix} \delta\^2_a & \delta\^2_{ab} \\\\ 
 \delta\^2\_{ab} & \delta\^2\_{b} \end{bmatrix}$$
 
-where $\delta^2_{ab}$ is the covariance of $a$ and $b$. The last important value of the result is `Residual Variance`, also called "reduced $\chi^2$ value", which can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fit)).
+where $\delta^2_{ab}$ is the covariance of $a$ and $b$. Be aware that the numbers in `Beta Std Error` are scaled standard deviation, which are calculated to be the square root of the products between variance and residual variance. The last important value of the result is `Residual Variance`, also called "reduced $\chi^2$ value", which can be used to calculate the [confidence level](https://www.statista.com/statistics-glossary/definition/328/confidence_level/) (see the last [section](#goodness-of-fit)).
 
 #### Prediction error
 Once the calibration relation is determined by linear regression, a prediction of a real time value needs to be made with a channel number (including an error). Since every single value in a physics experiment must have an error (uncertainty), the error of the predicted time value also needs to be determined.
