@@ -14,6 +14,9 @@
 - The font size in pictures should be roughly the same as in the text.
 - Make sure errors are correctly evaluated. Please look at the section [Error evaluation](#error-evaluation) below.
 - Every parameter fitting needs to be reported with a p-value (a.k.a confidence level). Please look at the section [Goodness of fit](#goodness-of-fit) below.
+- **There is no Na-22 source used in this experiment.**
+- **There is no gate generator used in this experiment.**
+- The style of figure captions should be consistent, such as the first letter captalization and period at the end of sentence. 
 
 ## Important suggestions
 - Before submitting the report, please go through it together with your group members. Check whether there are typos or whether each sentence ends with a period, etc. Since it's quite normal for each group member to have different writing skills, reading the report together is a great opportunity to learn from each other about how to write sentences in a clear and comprehensive way.
