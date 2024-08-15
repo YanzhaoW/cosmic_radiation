@@ -48,8 +48,8 @@ Some general information about this experiment should be written here **very bri
     * What are the functions of a CFD and why are CFDs needed in this experiment?  
       *HINT*: the time-walk effect and background noise
     * What are the outputs of a CFD?  
-      *HINT*: the logical output and constant-fraction shaped signals, the one with zero-crossing
-- Logical unit
+      *HINT*: the logic output and constant-fraction shaped signals, the one with zero-crossing
+- Logic unit
 - Delay module
 - Time-amplitude converter (TAC)
 - Multi-channel analyser (MCA)
@@ -60,7 +60,7 @@ Some general information about this experiment should be written here **very bri
 - Setup for CFDs
     * How to determine the time delay for the CFD?
     * How to determine an optimal value for the threshold of the CFDs? 
-    * What is the width of the logical output of the CFD?
+    * What is the width of the logic output of the CFD?
 - Coincidence verification  
      How to make sure there is no extra time delay difference introduced by cables?  
     *Keywords*: cable length, T-piece
