@@ -49,7 +49,7 @@ Some general information about this experiment should be written here **very bri
       *HINT*: the time-walk effect and background noise
     * What are the outputs of a CFD?  
       *HINT*: the logic output and constant-fraction shaped signals, the one with zero-crossing
-- Logic unit
+- Logic module
 - Delay module
 - Time-amplitude converter (TAC)
 - Multi-channel analyser (MCA)
