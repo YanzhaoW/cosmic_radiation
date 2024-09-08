@@ -1,9 +1,11 @@
+from typing import Callable
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from typing import Callable
-import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import odr, stats
+
 
 class ODR_fitter:
     def __init__(self, dataframe : pd.DataFrame):
@@ -15,11 +17,13 @@ class ODR_fitter:
         if self.dataframe.empty:
             raise ValueError("Cannot fit empty data!")
         model = odr.Model(self.fnt)
-        data = odr.RealData(x = self.dataframe['x'], y = self.dataframe['y'], sx = self.dataframe['x_err'], sy = self.dataframe['y_err'])
+        data = odr.RealData(x = self.dataframe['x'], y = self.dataframe['y'],
+                            sx = self.dataframe['x_err'], sy = self.dataframe['y_err'])
         self.odr_reg = odr.ODR(data, model, beta0 = inits)
         self.res = self.odr_reg.run()
         res_var = self.odr_reg.output.__getattribute__('res_var')
         self.p_value = 1 - stats.chi2.cdf(res_var, df = 1)
+        return self.res
 
     def save_plot(self, filename : str, title : str = ""):
         sns.scatterplot(data = self.dataframe, x= 'x', y = 'y', label = "Data")
